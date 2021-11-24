@@ -1,28 +1,16 @@
 #ifndef __INC_LED_SYSDEFS_ARM_SAM_H
 #define __INC_LED_SYSDEFS_ARM_SAM_H
 
-#if defined(STM32F10X_MD) || defined(STM32F2XX)
+#if defined(STM32F10X_MD) || defined(STM32F2XX) || defined(__STM32F1__)
+#include "variants/defs/stm32f103_legacy.h"
 
-#include <application.h>
-
-#define FASTLED_NAMESPACE_BEGIN namespace NSFastLED {
-#define FASTLED_NAMESPACE_END }
-#define FASTLED_USING_NAMESPACE using namespace NSFastLED;
-
-// reusing/abusing cli/sei defs for due
-#define cli()  __disable_irq(); __disable_fault_irq();
-#define sei() __enable_irq(); __enable_fault_irq();
-
-#elif defined (__STM32F1__)
-
-#include "cm3_regs.h"
-
-#define cli() nvic_globalirq_disable()
-#define sei() nvic_globalirq_enable()
+#elif defined(STM32F1xx)
+#include "variants/defs/stm32f103.h"
 
 #else
-#error "Platform not supported"
+ #error "Platform not supported"
 #endif
+
 
 #define FASTLED_ARM
 
@@ -55,10 +43,12 @@ typedef volatile       uint8_t RwReg; /**< Read-Write 8-bit register (volatile u
 
 #define FASTLED_NO_PINMAP
 
+#ifndef F_CPU
 #if defined(STM32F2XX)
 #define F_CPU 120000000
 #else
 #define F_CPU 72000000
+#endif
 #endif
 
 #if defined(STM32F2XX)

@@ -266,7 +266,7 @@ template<uint8_t port> struct __FL_PORT_INFO {
 	static bool hasPort() { return 1; } \
 	static const char *portName() { return #L; } \
 	typedef BASE __t_baseType;  \
-	static const void *portAddr() { return (void*)&__t_baseType::r(); } };
+	static const void *portAddr() { return (void*)__t_baseType::r(); } };
 
 FASTLED_NAMESPACE_END
 
