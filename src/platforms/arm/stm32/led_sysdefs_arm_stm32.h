@@ -28,9 +28,11 @@
 #endif
 
 // pgmspace definitions
+#ifndef PROGMEM
 #define PROGMEM
 #define pgm_read_dword(addr) (*(const unsigned long *)(addr))
 #define pgm_read_dword_near(addr) pgm_read_dword(addr)
+#endif
 
 // Default to NOT using PROGMEM here
 #ifndef FASTLED_USE_PROGMEM
